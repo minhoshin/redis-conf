@@ -24,10 +24,16 @@ sentinel monitor mymasterSe 10.5.0.7(master ip) 6380 2
 
 > redis-sentinel sengtinel.conf 실행
 
-* sentinel 접속
+* sentinel 접속 및 master 확인
 redis-cli -p 26379
+127.0.0.1:26379> sentinel master 마스터 이름 예) sentinel master mymaster
 
 * log 확인
+tail -f redis/log/sentinel.log
+
+* sentinel kill
+kill -9 pid
+
 ```
 
 ```
