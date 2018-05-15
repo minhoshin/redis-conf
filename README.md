@@ -22,11 +22,26 @@ port 26379
 sentinel monitor mymaster 10.5.0.7(master ip) 6379 2
 sentinel monitor mymasterSe 10.5.0.7(master ip) 6380 2
 
+> redis-sentinel sengtinel.conf 실행
+
 * sentinel 접속
 redis-cli -p 26379
 
 * log 확인
 ```
+
+```
+redis 복구
+
+redis master는 aof 사용
+redis slave는 rdb 사용
+
+복구시 redis slave의 rdb, aof 삭제 후 slave 가동
+redis-server *.conf
+
+서버의 rdb, aof 모두 복구
+```
+
 
 ```
 Docker 컨테이너에서 레디스 컴파일 하기
