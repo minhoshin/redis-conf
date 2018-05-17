@@ -1,56 +1,7 @@
 # redis-conf
 
 ```
-* redis master 
-redis master 설정(설정 파일 참고) 완료 후
-$ redis-server ./6379.conf 로 실행
-
-* redis slave
-redis slave 설정 의 경우 master 설정과 동일하지만 아래 save 와 appendonly 그리고 slaveof 설정 변경 필요 
-
-#save 900 1
-#save 300 10
-#save 60 10000
-첫 번째로 위의 #을 풀고
-
-두 번째로 appendonly yes 를 no 로 변경하고
-
-세번째로 slaveof 10.5.0.7 6379 // 마스터 아이피로 설정
-
-* sentinel 설정
-port 26379
-sentinel monitor mymaster 10.5.0.7(master ip) 6379 2
-sentinel monitor mymasterSe 10.5.0.7(master ip) 6380 2
-
-> redis-sentinel sengtinel.conf 실행
-
-* sentinel 접속 및 master 확인
-redis-cli -p 26379
-127.0.0.1:26379> sentinel master 마스터 이름 예) sentinel master mymaster
-
-* log 확인
-tail -f redis/log/sentinel.log
-
-* sentinel kill
-kill -9 pid
-
-```
-
-```
-redis 복구
-
-redis master는 aof 사용
-redis slave는 rdb 사용
-
-복구시 redis slave의 rdb, aof 삭제 후 slave 가동
-redis-server *.conf
-
-서버의 rdb, aof 모두 복구
-```
-
-
-```
-Docker 컨테이너에서 레디스 컴파일 하기
+* Docker 컨테이너에서 레디스 컴파일 하기
 
 docker 에서 local-centos 이름으로 centOS 6.8 컨테이너 띄우기
 docker run -itd --name local-centos centos:6.8 bash
@@ -104,4 +55,52 @@ PATH=$PATH:/home/partner/redis/bin
 위 내용 입력 후 빠져 나오기
 
 source .bashrc 로 등록
+```
+
+```
+* redis master 
+redis master 설정(설정 파일 참고) 완료 후
+$ redis-server ./6379.conf 로 실행
+
+* redis slave
+redis slave 설정 의 경우 master 설정과 동일하지만 아래 save 와 appendonly 그리고 slaveof 설정 변경 필요 
+
+#save 900 1
+#save 300 10
+#save 60 10000
+첫 번째로 위의 #을 풀고
+
+두 번째로 appendonly yes 를 no 로 변경하고
+
+세번째로 slaveof 10.5.0.7 6379 // 마스터 아이피로 설정
+
+* redis sentinel
+port 26379
+sentinel monitor mymaster 10.5.0.7(master ip) 6379 2
+sentinel monitor mymasterSe 10.5.0.7(master ip) 6380 2
+
+> redis-sentinel sengtinel.conf 실행
+
+* sentinel 접속 및 master 확인
+redis-cli -p 26379
+127.0.0.1:26379> sentinel master 마스터 이름 예) sentinel master mymaster
+
+* log 확인
+tail -f redis/log/sentinel.log
+
+* sentinel kill
+kill -9 pid
+
+```
+
+```
+* redis 복구
+
+redis master는 aof 사용
+redis slave는 rdb 사용
+
+복구시 redis slave의 rdb, aof 삭제 후 slave 가동
+redis-server *.conf
+
+서버의 rdb, aof 모두 복구
 ```
